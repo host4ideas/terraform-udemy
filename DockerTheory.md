@@ -12,7 +12,6 @@
 ## Images
 
 - `docker run -d -p 80:80 docker/getting-started` -> Start a new container from a image
-- `docker build -t **Image name** **Dockerfile path**`
 - `docker tag getting-started **New image name**` -> Change image's name
 
 ## Volumes
@@ -24,3 +23,17 @@
 
 - `docker login -u ***Username**` -> Login
 - `docker push **Image name or ID**:**tag**` -> Push new image
+
+## Dockerfile
+
+- `docker build -t **Image name** **Dockerfile path**` -> Build form Dockerfile
+
+- Eg.:
+
+```console
+FROM node:18-alpine
+WORKDIR /app
+COPY . .
+RUN yarn install --production
+CMD ["node", "src/index.js"]
+```
