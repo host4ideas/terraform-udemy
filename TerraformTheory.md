@@ -74,8 +74,25 @@ Link your IaC to use a git repository to introduce a formal process to review an
 2. Consul: service discovery platform. Provides a full-feature sevice mesh and distributed key-value storage for application configuration.
 3. Nomad: scheduling and deployment of tasks across worker nodes in a cluster
 4. Packer: tool for building VM images for deployment
-5. Terraform: IaC 
+5. Terraform: IaC
 6. Terraform Cloud: a place to store and manage IaC
 7. Vagrant: building and maintenance of reproducible software-development environments
 8. Vault: secrets management, encryption and auditing of secrets
 9. Waypoint: modern workflow to build, deploy and release across platforms
+
+## Terraform Provisioners
+
+Install software, edit files and provision machines created with Terraform. Should be used as last resort, because they will do something that won't be reflected in the terraform state.
+
+1. Cloud-init: launch a service by providing a YAML or Bash script. You can reference the script from the terraform template.
+2. Packer: automated cloud-agnostic image-builder.
+
+## Local-exec
+
+Allows you to run local commands after a resource is provided. Eg.: after you provision a VM you want to supply the public IP to a thyrd-party service.
+
+You can also output information after provisioning with Terraform Outputs, but this won't allow you to run commands.
+
+## Null provisioners
+
+null_provisioners is a placeholder for resources that have no specific association to a provider resources.
