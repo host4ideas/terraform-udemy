@@ -96,3 +96,26 @@ You can also output information after provisioning with Terraform Outputs, but t
 ## Null provisioners
 
 null_provisioners is a placeholder for resources that have no specific association to a provider resources.
+
+## Syntax
+
+### Map
+
+Arguments inside blocks with keys can be accessed using index syntax, such as `aws_instance.example.device["foo"].size`.
+
+To obtain a map of values of a particular argument for labelled nested block types, use a for expression:
+`{for k, device in aws_instance.example.device : k => device.size}`
+
+`aws_instance.example["a"].id` returns the id of the "a"-keyed resource.
+`[for value in aws_instance.example: value.id]` returns a list of all of the ids of each of the instances.
+
+### List
+
+When a resource has the count argument set, the resource itself becomes a list of instance objects rather than a single object. In that case, access the attributes of the instances using either splat expressions or index syntax:
+
+- `aws_instance.example[*].id` returns a list of all of the ids of each of the instances.
+- `aws_instance.example[0].id` returns just the id of the first instance.When a resource has the for_each argument set, the resource itself becomes a map of instance objects rather than a single object, and attributes of instances must be specified by key, or can be accessed using a for expression.
+
+> Note that unlike count, splat expressions are not directly applicable to resources managed with for_each, as splat expressions must act on a  list value. However, you can use the values() function to extract the instances as a list and use that list value in a splat expression:
+
+`values(aws_instance.example)[*].id`
